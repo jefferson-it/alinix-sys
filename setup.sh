@@ -1027,22 +1027,22 @@ POLKIT
 # Quando o link do repo não estiver definido ainda, deixa vazio e o stage
 # simplesmente pula esse app (sem erro).
 declare -A ALINIX_APP_REPOS=(
-    ["erasshell"]=""
-    ["alinix-dock"]=""
-    ["alinix-init"]=""
-    ["alinix-settings"]=""
-    ["ali"]=""
-    ["alipack"]=""
-    ["alistaller"]=""
-    ["menu-global"]=""
-    ["menu-global-gtk4"]=""
-    ["themes"]=""
-    ["wobbly-windows"]=""
-    ["quicklook"]=""
-    ["pkg-compat"]=""
-    ["desktop/jterminal"]=""
-    ["desktop/jexplorer"]=""
-    ["desktop/config-app"]=""
+    ["erasshell"]="https://github.com/jefferson-it/erasshell.git"
+    ["alinix-dock"]="https://github.com/jefferson-it/alinix-dock.git"
+    ["alinix-init"]="https://github.com/jefferson-it/alinstaler.git"
+    ["alinix-settings"]=""   # fork GCC — repo a definir
+    ["ali"]="https://github.com/jefferson-it/ali.git"
+    ["alipack"]="https://github.com/jefferson-it/alipack.git"
+    ["alistaller"]=""        # repo a definir
+    ["menu-global"]="https://github.com/jefferson-it/menu-global.git"
+    ["menu-global-gtk4"]="https://github.com/jefferson-it/menu-global-gtk4.git"
+    ["themes"]="https://github.com/jefferson-it/alinix-themes.git"
+    ["wobbly-windows"]="https://github.com/jefferson-it/wobbly-windows.git"
+    ["quicklook"]="https://github.com/jefferson-it/quicklook.git"
+    ["pkg-compat"]="https://github.com/jefferson-it/alipack-pkg-compact.git"
+    ["desktop/jterminal"]="https://github.com/jefferson-it/JTerminal.git"
+    ["desktop/jexplorer"]="https://github.com/jefferson-it/JExplorer.git"
+    ["desktop/config-app"]="https://github.com/jefferson-it/alinix-settings.git"
 )
 
 stage_clone_apps() {

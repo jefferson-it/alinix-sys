@@ -102,24 +102,25 @@ Componentes instalados diretamente:
 
 O repositório `sys/` (este) é o ponto de entrada do projeto. Cada app tem seu próprio repositório Git e é clonado pelo `setup.sh` durante o build.
 
-| App | Repositório (a preencher) |
-|-----|--------------------------|
+| App | Repositório |
+|-----|------------|
 | `sys` | *(este repo)* |
-| `erasshell` | a ser definido |
-| `alinix-settings` | a ser definido |
-| `jterminal` | a ser definido |
-| `jexplorer` | a ser definido |
-| `ali` | a ser definido |
-| `alinix-dock` | a ser definido |
-| `alinix-init` | a ser definido |
-| `alipack` | a ser definido |
+| `erasshell` | https://github.com/jefferson-it/erasshell |
+| `alinix-settings` (Python) | https://github.com/jefferson-it/alinix-settings |
+| `alinix-settings` (GCC fork) | a ser definido |
+| `jterminal` | https://github.com/jefferson-it/JTerminal |
+| `jexplorer` | https://github.com/jefferson-it/JExplorer |
+| `ali` | https://github.com/jefferson-it/ali |
+| `alinix-dock` | https://github.com/jefferson-it/alinix-dock |
+| `alinix-init` | https://github.com/jefferson-it/alinstaler |
+| `alipack` | https://github.com/jefferson-it/alipack |
 | `alistaller` | a ser definido |
-| `themes` | a ser definido |
-| `menu-global` | a ser definido |
-| `menu-global-gtk4` | a ser definido |
-| `wobbly-windows` | a ser definido |
-| `quicklook` | a ser definido |
-| `pkg-compat` | a ser definido |
+| `themes` | https://github.com/jefferson-it/alinix-themes |
+| `menu-global` | https://github.com/jefferson-it/menu-global |
+| `menu-global-gtk4` | https://github.com/jefferson-it/menu-global-gtk4 |
+| `wobbly-windows` | https://github.com/jefferson-it/wobbly-windows |
+| `quicklook` | https://github.com/jefferson-it/quicklook |
+| `pkg-compat` | https://github.com/jefferson-it/alipack-pkg-compact |
 
 ---
 
