@@ -30,7 +30,7 @@ log_stage() {
 }
 
 # ── Localização do repositório ────────────────────────────────────────────────
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 APPS_DIR="$REPO_DIR/apps"
 
 [[ -d "$APPS_DIR" ]] || { log_error "apps/ não encontrado em $REPO_DIR. Execute dentro do repositório Alinix-Deb."; exit 1; }
@@ -351,7 +351,7 @@ fi
 # ==============================================================================
 log_stage "Stage 6 — Desktop UX"
 
-_run "desktop-ux" "$APPS_DIR/desktop/install-desktop-ux.sh" $MODE_FLAG
+_run "desktop-ux" "$REPO_DIR/sys/desktop-ux/install-desktop-ux.sh" $MODE_FLAG
 
 # Wallpaper
 WP_SRC="${REPO_DIR}/sys/assets/black-and-white-3840x2160-21293.jpg"

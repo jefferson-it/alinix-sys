@@ -44,7 +44,7 @@ log_stage()   { echo -e "\n${PURPLE}${BOLD}════════════�
                 echo -e "${PURPLE}${BOLD}════════════════════════════════════════════════${NC}\n"; }
 
 # ── Configuração ──────────────────────────────────────────────────────────────
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # Build root fora de /home para evitar problemas com noexec/nodev
 BUILD_ROOT="/var/tmp/alinix-build/alinix-root"
 DIST_DIR="${SCRIPT_DIR}/sys/dist"
@@ -1034,6 +1034,7 @@ declare -A ALINIX_APP_REPOS=(
     ["ali"]="https://github.com/jefferson-it/ali.git"
     ["alipack"]="https://github.com/jefferson-it/alipack.git"
     ["alistaller"]=""        # repo a definir
+    ["central-apps"]="https://github.com/jefferson-it/alinix-central-apps.git"
     ["menu-global"]="https://github.com/jefferson-it/menu-global.git"
     ["menu-global-gtk4"]="https://github.com/jefferson-it/menu-global-gtk4.git"
     ["themes"]="https://github.com/jefferson-it/alinix-themes.git"
@@ -1043,12 +1044,14 @@ declare -A ALINIX_APP_REPOS=(
     ["desktop/jterminal"]="https://github.com/jefferson-it/JTerminal.git"
     ["desktop/jexplorer"]="https://github.com/jefferson-it/JExplorer.git"
     ["desktop/config-app"]="https://github.com/jefferson-it/alinix-settings.git"
+    ["desktop/alinix-share"]="https://github.com/jefferson-it/alinix-share.git"
+    ["desktop/command-key"]="https://github.com/jefferson-it/alinix-command-key.git"
 )
 
 stage_clone_apps() {
     log_stage "Stage 9.5 — Sincronizando repositórios dos apps"
 
-    local APPS_BASE="${SCRIPT_DIR}/apps"
+    local APPS_BASE="${SCRIPT_DIR}/app"
 
     for app_path in "${!ALINIX_APP_REPOS[@]}"; do
         local repo_url="${ALINIX_APP_REPOS[$app_path]}"
@@ -1086,7 +1089,7 @@ stage_clone_apps() {
 stage_install_apps() {
     log_stage "Stage 10 — Compilando apps no host e instalando no chroot"
 
-    local APPS="${SCRIPT_DIR}/apps"
+    local APPS="${SCRIPT_DIR}/app"
     local DST="${BUILD_ROOT}/usr"
     local REAL_USER="${SUDO_USER:-root}"
     local REAL_HOME
@@ -1226,7 +1229,7 @@ DESKTOP
 
     # ── Desktop UX (tema, menu-global, wobbly, touchegg, gsettings) ───────
     log_info "[desktop-ux] instalando..."
-    if ! ALINIX_ROOT="$BUILD_ROOT" bash "${APPS}/desktop/install-desktop-ux.sh"; then
+    if ! ALINIX_ROOT="$BUILD_ROOT" bash "${SCRIPT_DIR}/sys/desktop-ux/install-desktop-ux.sh"; then
         log_warn "[desktop-ux] falhou (não-crítico)"
     else
         log_ok "[desktop-ux] instalado"
@@ -1538,7 +1541,7 @@ CHROOT_LIVE
     # ── Tema GTK4 + Flatpak para o usuário live ───────────────────────────────
     # GTK4 ignora /usr/share/themes — lê apenas ~/.config/gtk-4.0/gtk.css
     # Flatpak lê ~/.themes/<nome>/gtk-4.0/ via --filesystem=~/.themes
-    local THEME_SRC="${SCRIPT_DIR}/apps/themes/alinix-dracula"
+    local THEME_SRC="${SCRIPT_DIR}/app/themes/alinix-dracula"
     local LIVE_HOME="${BUILD_ROOT}/home/alinix-live"
 
     if [[ -d "$THEME_SRC" ]]; then
@@ -1960,10 +1963,9 @@ stage_generate_iso() {
         sudo -u "$SUDO_USER" mkdir -p "$_USER_TMP"
         INITRD_TMP="$_USER_TMP/initrd.img"
         sudo -u "$SUDO_USER" env PATH="$PATH" HOME="/home/$SUDO_USER" \
-            bash "${SCRIPT_DIR}/apps/alinix-init/build-initramfs.sh" --output "$INITRD_TMP"
-    else
-        INITRD_TMP="/tmp/alinix-initrd.img"
-        bash "${SCRIPT_DIR}/apps/alinix-init/build-initramfs.sh" --output "$INITRD_TMP"
+            bash "${SCRIPT_DIR}/app/alinix-init/build-initramfs.sh" --output "$INITRD_TMP"
+        else
+            bash "${SCRIPT_DIR}/app/alinix-init/build-initramfs.sh" --output "$INITRD_TMP"
     fi
     mv "$INITRD_TMP" "$INITRD_OUT"
     [[ -n "${SUDO_USER:-}" ]] && rm -rf "$_USER_TMP" || true

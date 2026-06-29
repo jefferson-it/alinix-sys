@@ -84,6 +84,9 @@ Componentes instalados diretamente:
 | `alipack` | Rust | Gerenciador de pacotes |
 | `pkg-compat` | Bash/Python | Compatibilidade .deb/.rpm/etc |
 | `alinix-init` | Rust | Init customizado (FHS) |
+| `central-apps` | Vários | Repositório central de apps Alinix |
+| `alinix-share` | Scripts | Compartilhamento de arquivos |
+| `command-key` | Bash | Remapeamento de teclas (Command → Super) |
 
 ### 6. Temas
 
@@ -121,6 +124,9 @@ O repositório `sys/` (este) é o ponto de entrada do projeto. Cada app tem seu 
 | `wobbly-windows` | https://github.com/jefferson-it/wobbly-windows |
 | `quicklook` | https://github.com/jefferson-it/quicklook |
 | `pkg-compat` | https://github.com/jefferson-it/alipack-pkg-compact |
+| `central-apps` | https://github.com/jefferson-it/alinix-central-apps |
+| `alinix-share` | https://github.com/jefferson-it/alinix-share |
+| `command-key` | https://github.com/jefferson-it/alinix-command-key |
 
 ---
 
@@ -133,7 +139,7 @@ setup.sh
   │
   ├── chroot:
   │   ├── apt install gnome-shell mutter gdm3 ...
-  │   ├── git clone apps → /build/chroot/tmp/apps/
+  │   ├── git clone apps → sys/app/
   │   │   └── (cada app) make install / bash install.sh
   │   ├── glib-compile-schemas (extensões)
   │   ├── dconf load (configurações padrão)

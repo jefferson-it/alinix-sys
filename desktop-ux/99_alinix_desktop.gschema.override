@@ -1,0 +1,34 @@
+# GNOME GSettings Schema Overrides para o Alinix
+# Define a aparência macOS-like, tema dark purple e extensões padrão.
+
+[org.gnome.desktop.interface]
+# Ativa preferência por modo escuro e define o tema de janelas e ícones Alinix
+gtk-theme='alinix-purple-dark'
+icon-theme='Papirus'
+cursor-theme='Google Dots'
+color-scheme='prefer-dark'
+font-name='Outfit Regular 11'
+document-font-name='Outfit Regular 11'
+monospace-font-name='JetBrains Mono 10'
+
+[org.gnome.desktop.wm.preferences]
+# Coloca as "bolas" (fechar, minimizar, maximizar) no canto esquerdo da janela (estilo macOS)
+button-layout='close,minimize,maximize:appmenu'
+titlebar-font='Outfit Bold 11'
+
+[org.gnome.shell]
+# Habilita por padrão as extensões solicitadas:
+# - user-theme: para mudar o visual do shell principal
+# - menu-global: para menu global estilo macOS no painel superior
+# - wobbly-windows: animação de janelas estilo gelatina (Compiz)
+enabled-extensions=['user-theme@gnome-shell-extensions.gcampax.github.com', 'alinix-dock@alinix.osx', 'menu-global@alinix.osx', 'wobbly-windows@weinberg.org']
+
+[org.gnome.shell.extensions.user-theme]
+# Aplica o tema dark purple ao painel e menus do GNOME Shell
+name='alinix-purple-dark'
+
+
+[org.gnome.desktop.peripherals.touchpad]
+# Habilita rolagem natural e toque para clicar por padrão
+tap-to-click=true
+natural-scroll=true

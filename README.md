@@ -64,9 +64,27 @@ sys/
 │   ├── .zshrc                  # ZSH configurado com Oh My Zsh
 │   ├── alinix.zsh-theme        # Tema do shell estilo macOS
 │   └── .config/                # Configs padrão (GTK, dconf)
-└── assets/                     # Assets do sistema
-    ├── AlinixLogo-Regular.otf  # Fonte com logo Alinix
-    └── build-logo-font.py      # Script para rebuild da fonte
+├── assets/                     # Assets do sistema
+│   ├── AlinixLogo-Regular.otf  # Fonte com logo Alinix
+│   └── build-logo-font.py      # Script para rebuild da fonte
+└── app/                        # Apps clonados dos seus repos (gerado pelo setup.sh)
+    ├── ali/                    # https://github.com/jefferson-it/ali.git
+    ├── alipack/                # https://github.com/jefferson-it/alipack.git
+    ├── erasshell/              # https://github.com/jefferson-it/erasshell.git
+    ├── alinix-dock/            # https://github.com/jefferson-it/alinix-dock.git
+    ├── alinix-init/            # https://github.com/jefferson-it/alinstaler.git
+    ├── menu-global/            # https://github.com/jefferson-it/menu-global.git
+    ├── menu-global-gtk4/       # https://github.com/jefferson-it/menu-global-gtk4.git
+    ├── themes/                 # https://github.com/jefferson-it/alinix-themes.git
+    ├── wobbly-windows/         # https://github.com/jefferson-it/wobbly-windows.git
+    ├── quicklook/              # https://github.com/jefferson-it/quicklook.git
+    ├── pkg-compat/             # https://github.com/jefferson-it/alipack-pkg-compact.git
+    ├── central-apps/           # https://github.com/jefferson-it/alinix-central-apps.git
+    ├── desktop/jterminal/      # https://github.com/jefferson-it/JTerminal.git
+    ├── desktop/jexplorer/      # https://github.com/jefferson-it/JExplorer.git
+    ├── desktop/config-app/     # https://github.com/jefferson-it/alinix-settings.git
+    ├── desktop/alinix-share/   # https://github.com/jefferson-it/alinix-share.git
+    └── desktop/command-key/    # https://github.com/jefferson-it/alinix-command-key.git
 ```
 
 ---
@@ -104,13 +122,13 @@ O script executa as seguintes etapas:
 
 ## Apps
 
-Os apps do Alinix ficam em repositórios separados e são clonados automaticamente pelo `setup.sh`. Veja `architecture.md` para a lista completa e links.
+Cada app do Alinix tem seu próprio repositório no GitHub. O `setup.sh` clona todos em `sys/app/` (ou faz `git pull` se já existirem) automaticamente durante o build. A lista completa com as URLs está no mapa `ALINIX_APP_REPOS` dentro do `setup.sh`.
 
 ---
 
 # Alinix — Base System (English)
 
-This repository contains the **Alinix** base system: ISO build scripts, skel configuration, assets and the `setup.sh` that assembles the complete environment.
+This repository contains the **Alinix** base system: ISO build scripts, skel configuration, assets and the `setup.sh` that assembles the complete environment. Apps live in their own GitHub repos and are cloned to `sys/app/` by `setup.sh`.
 
 ## What is Alinix?
 
