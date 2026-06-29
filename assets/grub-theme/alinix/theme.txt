@@ -1,0 +1,36 @@
+# Alinix GRUB Theme
+# Pure Black and Minimalist Distro Icons
+
+# Global Settings
+title-text: ""
+desktop-color: "#000000"
+desktop-image: "background.png"
+terminal-font: "Unifont Regular 16"
+
+# Boot Menu
++ boot_menu {
+  left = 50%-250
+  top = 35%
+  width = 500
+  height = 300
+  item_font = "DejaVu Sans Regular 14"
+  selected_item_font = "DejaVu Sans Bold 14"
+  item_color = "#888888"
+  selected_item_color = "#ffffff"
+  item_height = 48
+  item_spacing = 16
+  icon_width = 32
+  icon_height = 32
+  item_icon_space = 16
+}
+
+# Footer Hint
++ label {
+  top = 80%
+  left = 50%-250
+  width = 500
+  align = "center"
+  color = "#555555"
+  font = "DejaVu Sans Regular 12"
+  text = "↑↓: Selecionar  |  Enter: Iniciar  |  e: Editar"
+}

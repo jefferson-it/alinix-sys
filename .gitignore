@@ -1,0 +1,9 @@
+# Artefatos de build
+build/
+dist/
+*.iso
+*.squashfs
+*.img
+
+# Logs
+*.log

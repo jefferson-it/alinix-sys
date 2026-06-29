@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=alinix-theme
+Description=Tema de boot Plymouth para Alinix OS
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/alinix-theme
+ScriptFile=/usr/share/plymouth/themes/alinix-theme/alinix-theme.script

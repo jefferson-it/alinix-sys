@@ -1,0 +1,120 @@
+# =============================================================================
+# Tema Plymouth — Alinix OS
+# Estilo: logo centralizada, barra fina no fundo (estilo macOS)
+# =============================================================================
+
+# ─── Fundo preto puro ────────────────────────────────────────────────────────
+Window.SetBackgroundTopColor(0.0, 0.0, 0.0);
+Window.SetBackgroundBottomColor(0.0, 0.0, 0.0);
+
+# ─── Dimensões ───────────────────────────────────────────────────────────────
+screen_width  = Window.GetWidth();
+screen_height = Window.GetHeight();
+
+# ─── Logo centralizada ───────────────────────────────────────────────────────
+logo_image  = Image("logo.png");
+logo_width  = logo_image.GetWidth();
+logo_height = logo_image.GetHeight();
+
+logo_x = Math.Int((screen_width  - logo_width)  / 2);
+logo_y = Math.Int((screen_height - logo_height) / 2);
+
+logo_sprite = Sprite(logo_image);
+logo_sprite.SetPosition(logo_x, logo_y, 10);
+logo_sprite.SetOpacity(1.0);
+
+# ─── Barra de progresso estilo macOS (fundo da tela) ─────────────────────────
+# Barra fina, centralizada, ~30% da largura da tela, ~14px acima do fundo
+bar_total_width  = Math.Int(screen_width * 0.30);
+bar_height       = 4;
+bar_x            = Math.Int((screen_width - bar_total_width) / 2);
+bar_y            = screen_height - 36;
+
+# Carrega a imagem base de 1x1 pixel
+bar_base_image = Image("progress_bar.png");
+
+# Trilha cinza escura (branco com 0.25 de opacidade)
+bar_track_image = bar_base_image.Scale(bar_total_width, bar_height);
+bar_track_sprite = Sprite(bar_track_image);
+bar_track_sprite.SetPosition(bar_x, bar_y, 5);
+bar_track_sprite.SetOpacity(0.25);
+
+# Preenchimento branco (opacidade 1.0)
+bar_fill_sprite = Sprite();
+bar_fill_sprite.SetPosition(bar_x, bar_y, 6);
+bar_fill_sprite.SetOpacity(0.0);
+
+# ─── Estado global ───────────────────────────────────────────────────────────
+global.progress   = 0.0;
+global.sim_tick   = 0;
+global.pulse_dir  = 1;
+global.pulse_op   = 1.0;
+global.quitting   = 0;
+
+# ─── Callback de progresso real (quando o kernel reporta) ────────────────────
+fun boot_progress_callback(duration, progress) {
+    if (global.quitting == 1) { return; }
+    if (progress > global.progress) {
+        global.progress = progress;
+    }
+}
+
+Plymouth.SetBootProgressFunction(boot_progress_callback);
+
+# ─── Refresh: pulsa a logo e atualiza a barra ────────────────────────────────
+fun refresh_callback() {
+    if (global.quitting == 1) { return; }
+
+    # Simular progresso gradual para a barra sempre avançar visualmente
+    global.sim_tick = global.sim_tick + 1;
+    sim_progress = global.sim_tick / 300.0;
+    if (sim_progress > 1.0) { sim_progress = 0.99; }
+
+    # Usar o maior entre o progresso real e o simulado
+    display_progress = global.progress;
+    if (sim_progress > display_progress) {
+        display_progress = sim_progress;
+    }
+    if (display_progress > 1.0) { display_progress = 1.0; }
+
+    fill_w = Math.Int(bar_total_width * display_progress);
+    if (fill_w < 2) { fill_w = 2; }
+
+    fill_img = bar_base_image.Scale(fill_w, bar_height);
+    bar_fill_sprite.SetImage(fill_img);
+    bar_fill_sprite.SetPosition(bar_x, bar_y, 6);
+    bar_fill_sprite.SetOpacity(1.0);
+
+    # Pulsação suave na logo
+    if (global.pulse_dir == 1) {
+        global.pulse_op = global.pulse_op - 0.004;
+        if (global.pulse_op <= 0.75) { global.pulse_dir = 0; }
+    } else {
+        global.pulse_op = global.pulse_op + 0.004;
+        if (global.pulse_op >= 1.0)  { global.pulse_dir = 1; }
+    }
+    logo_sprite.SetOpacity(global.pulse_op);
+}
+
+Plymouth.SetRefreshFunction(refresh_callback);
+
+# ─── Saída limpa: ESC, Tab, transição para GDM ───────────────────────────────
+fun hide_all() {
+    global.quitting = 1;
+    logo_sprite.SetOpacity(0.0);
+    bar_track_sprite.SetOpacity(0.0);
+    bar_fill_sprite.SetOpacity(0.0);
+}
+
+fun quit_callback() {
+    hide_all();
+}
+
+fun display_normal_callback() {
+    global.quitting = 0;
+    logo_sprite.SetOpacity(global.pulse_op);
+    bar_track_sprite.SetOpacity(1.0);
+}
+
+Plymouth.SetQuitFunction(quit_callback);
+Plymouth.SetDisplayNormalFunction(display_normal_callback);
